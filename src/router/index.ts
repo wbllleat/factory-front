@@ -13,12 +13,12 @@ const router = createRouter({
           component: () => import('@/views/HomeView.vue'),
           meta: { title: '首页' }
         },
-        // {
-        //     path: 'user',
-        //     name: 'user',
-        //     component: () => import('@/views/UserManageView.vue'),
-        //     meta: { title: '用户管理' }
-        // },
+        {
+          path: 'users',
+          name: 'users',
+          component: () => import('@/views/UserManageView.vue'),
+          meta: { title: '用户管理' }
+        },
         {
           path: 'equipment',
           name: 'equipment',

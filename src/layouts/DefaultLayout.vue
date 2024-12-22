@@ -19,6 +19,11 @@
           首页
         </a-menu-item>
         
+        <a-menu-item key="users" @click="router.push('/users')">
+          <template #icon><icon-user /></template>
+          用户管理
+        </a-menu-item>
+        
         <a-menu-item key="equipment" @click="router.push('/equipment')">
           <template #icon><icon-computer /></template>
           设备管理
