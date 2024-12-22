@@ -38,6 +38,11 @@
           <template #icon><icon-calendar /></template>
           租赁管理
         </a-menu-item>
+        
+        <a-menu-item key="inspection" @click="router.push('/inspection')">
+          <template #icon><icon-scan /></template>
+          巡检管理
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
 
@@ -75,6 +80,7 @@ import {
   IconComputer,
   IconTool,
   IconCalendar,
+  IconScan,
   IconMenuFold,
   IconMenuUnfold
 } from '@arco-design/web-vue/es/icon'

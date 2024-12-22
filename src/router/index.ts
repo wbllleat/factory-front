@@ -36,6 +36,12 @@ const router = createRouter({
           name: 'rental',
           component: () => import('@/views/RentalManageView.vue'),
           meta: { title: '租赁管理' }
+        },
+        {
+          path: 'inspection',
+          name: 'inspection',
+          component: () => import('@/views/InspectionManageView.vue'),
+          meta: { title: '巡检管理' }
         }
         // ... 其他路由
       ]
