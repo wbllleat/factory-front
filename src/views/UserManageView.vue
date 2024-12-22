@@ -179,21 +179,117 @@ const getRoleTagColor = (role: string) => {
 const fetchUserList = async () => {
   loading.value = true
   try {
-    // 这里应该调用后端API
-    const mockData = Array(pagination.total).fill(0).map((_, index) => ({
-      id: `${index + 1}`,
-      username: `user${index + 1}`,
-      name: `用户${index + 1}`,
-      role: ['admin', 'manufacturer', 'maintainer'][index % 3],
-      email: `user${index + 1}@example.com`,
-      phone: `1381234${String(index).padStart(4, '0')}`,
-      createTime: '2024-03-14 12:00:00'
-    }))
-    
+    // 模拟用户数据
+    const mockUsers = [
+      {
+        id: '1',
+        username: 'admin001',
+        name: '张三',
+        role: 'admin',
+        email: 'zhangsan@example.com',
+        phone: '13800138001',
+        createTime: '2024-03-14 10:00:00'
+      },
+      {
+        id: '2',
+        username: 'manufacturer001',
+        name: '李四',
+        role: 'manufacturer',
+        email: 'lisi@example.com',
+        phone: '13800138002',
+        createTime: '2024-03-14 11:00:00'
+      },
+      {
+        id: '3',
+        username: 'maintainer001',
+        name: '王五',
+        role: 'maintainer',
+        email: 'wangwu@example.com',
+        phone: '13800138003',
+        createTime: '2024-03-14 12:00:00'
+      },
+      {
+        id: '4',
+        username: 'admin002',
+        name: '赵六',
+        role: 'admin',
+        email: 'zhaoliu@example.com',
+        phone: '13800138004',
+        createTime: '2024-03-14 13:00:00'
+      },
+      {
+        id: '5',
+        username: 'manufacturer002',
+        name: '钱七',
+        role: 'manufacturer',
+        email: 'qianqi@example.com',
+        phone: '13800138005',
+        createTime: '2024-03-14 14:00:00'
+      },
+      {
+        id: '6',
+        username: 'maintainer002',
+        name: '孙八',
+        role: 'maintainer',
+        email: 'sunba@example.com',
+        phone: '13800138006',
+        createTime: '2024-03-14 15:00:00'
+      },
+      {
+        id: '7',
+        username: 'admin003',
+        name: '周九',
+        role: 'admin',
+        email: 'zhoujiu@example.com',
+        phone: '13800138007',
+        createTime: '2024-03-14 16:00:00'
+      },
+      {
+        id: '8',
+        username: 'manufacturer003',
+        name: '吴十',
+        role: 'manufacturer',
+        email: 'wushi@example.com',
+        phone: '13800138008',
+        createTime: '2024-03-14 17:00:00'
+      },
+      {
+        id: '9',
+        username: 'maintainer003',
+        name: '郑十一',
+        role: 'maintainer',
+        email: 'zhengshiyi@example.com',
+        phone: '13800138009',
+        createTime: '2024-03-14 18:00:00'
+      },
+      {
+        id: '10',
+        username: 'admin004',
+        name: '王十二',
+        role: 'admin',
+        email: 'wangshier@example.com',
+        phone: '13800138010',
+        createTime: '2024-03-14 19:00:00'
+      }
+    ]
+
+    // 搜索过滤
+    let filteredData = [...mockUsers]
+    if (searchParams.username) {
+      filteredData = filteredData.filter(item => 
+        item.username.toLowerCase().includes(searchParams.username.toLowerCase()) ||
+        item.name.includes(searchParams.username)
+      )
+    }
+    if (searchParams.role) {
+      filteredData = filteredData.filter(item => item.role === searchParams.role)
+    }
+
+    // 分页处理
+    pagination.total = filteredData.length
     const start = (pagination.current - 1) * pagination.pageSize
     const end = start + pagination.pageSize
-    tableData.value = mockData.slice(start, end)
-    pagination.total = mockData.length
+    tableData.value = filteredData.slice(start, end)
   } catch (error) {
     Message.error('获取用户列表失败')
   } finally {
@@ -259,7 +355,7 @@ const handleModalOk = async () => {
     modalVisible.value = false
     fetchUserList()
   } catch (error) {
-    // 表单验证失败
+    // 表单验证��败
   }
 }
 
