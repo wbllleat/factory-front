@@ -136,7 +136,7 @@ const searchParams = reactive({
 
 // 表格相关
 const loading = ref(false)
-const tableData = ref([])
+const tableData = ref<User[]>([])
 const pagination = reactive({
   total: 0,
   current: 1,
@@ -146,7 +146,7 @@ const pagination = reactive({
 // 模态框相关
 const modalVisible = ref(false)
 const modalTitle = ref('添加用户')
-const formRef = ref()
+const formRef = ref<any>()
 const formData = reactive({
   id: '',
   username: '',
@@ -355,7 +355,7 @@ const handleModalOk = async () => {
     modalVisible.value = false
     fetchUserList()
   } catch (error) {
-    // 表单验证��败
+    // 表单验证失败
   }
 }
 

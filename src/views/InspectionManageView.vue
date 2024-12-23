@@ -131,7 +131,7 @@ const searchParams = reactive({
 
 // 表格相关
 const loading = ref(false)
-const tableData = ref([])
+const tableData = ref<InspectionPlan[]>([])
 const pagination = reactive({
   total: 0,
   current: 1,
@@ -141,7 +141,7 @@ const pagination = reactive({
 // 新建巡检相关
 const createModalVisible = ref(false)
 const createLoading = ref(false)
-const createFormRef = ref()
+const createFormRef = ref<any>()
 const createForm = reactive({
   name: '',
   cycle: 1,
@@ -157,7 +157,7 @@ const inspectors = ref([
 ])
 
 // 表单校验规则
-const createRules = {
+const createRules = reactive({
   name: [
     { required: true, message: '请输入巡检名称' },
     { maxLength: 50, message: '巡检名称最多50个字符' }
@@ -172,7 +172,7 @@ const createRules = {
   inspectorId: [
     { required: true, message: '请选择巡检人' }
   ]
-}
+})
 
 // 状态工具函数
 const getStatusLabel = (status: number) => {

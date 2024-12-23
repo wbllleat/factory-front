@@ -57,10 +57,21 @@
         </a-button>
         
         <div class="flex items-center gap-4">
-          <a-avatar>
-            <icon-user />
-          </a-avatar>
-          <span>管理员</span>
+          <a-dropdown>
+            <div class="flex items-center gap-2 cursor-pointer">
+              <a-avatar>
+                <icon-user />
+              </a-avatar>
+              <span>{{ userInfo.name }}</span>
+              <icon-down />
+            </div>
+            <template #content>
+              <a-doption @click="handleLogout">
+                <template #icon><icon-export /></template>
+                退出登录
+              </a-doption>
+            </template>
+          </a-dropdown>
         </div>
       </a-layout-header>
       
@@ -72,8 +83,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { Message } from '@arco-design/web-vue'
 import { 
   IconHome,
   IconUser,
@@ -82,10 +94,31 @@ import {
   IconCalendar,
   IconScan,
   IconMenuFold,
-  IconMenuUnfold
+  IconMenuUnfold,
+  IconDown,
+  IconExport
 } from '@arco-design/web-vue/es/icon'
 
 const router = useRouter()
 const route = useRoute()
 const collapsed = ref(false)
+const userInfo = ref({
+  name: '管理员'
+})
+
+// 获取用户信息
+onMounted(() => {
+  const user = localStorage.getItem('user')
+  if (user) {
+    userInfo.value = JSON.parse(user)
+  }
+})
+
+// 退出登录
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  Message.success('已退出登录')
+  router.push('/login')
+}
 </script> 
