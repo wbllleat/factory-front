@@ -67,7 +67,7 @@
             </a-tag>
           </template>
         </a-table-column>
-        <a-table-column title="操作" width="300">
+        <a-table-column-number title="操作" width="300">
           <template #cell="{ record }">
             <a-space>
               <a-button
@@ -97,7 +97,7 @@
               </a-popconfirm>
             </a-space>
           </template>
-        </a-table-column>
+        </a-table-column-number>
       </template>
     </a-table>
 
@@ -167,6 +167,19 @@ import {
   IconDelete, 
   IconPoweroff 
 } from '@arco-design/web-vue/es/icon'
+
+// 表单验证规则
+const rules = reactive({
+  code: [{ required: true, message: '请输入设备编号' }],
+  name: [{ required: true, message: '请输入设备名称' }],
+  categoryId: [{ required: true, message: '请选择设备类型' }],
+  brand: [{ required: true, message: '请输入品牌' }],
+  model: [{ required: true, message: '请输入型号' }],
+  value: [{ required: true, message: '请输入设备价值' }],
+  specifications: [{ required: true, message: '请输入规格' }],
+  location: [{ required: true, message: '请输入位置' }],
+  supplier: [{ required: true, message: '请输入供应商' }]
+})
 
 // 搜索参数
 const searchParams = reactive({
@@ -333,18 +346,18 @@ const handleModalCancel = () => {
 
 // 开关机操作
 const togglePower = async (record: any) => {
+  const action = record.status === 'running' ? '关机' : '开机'; // 定义 action
   try {
-    record.operating = true // 添加loading状态
-    // 这里应该调用后端API
-    await new Promise(resolve => setTimeout(resolve, 2000)) // 模拟API调用延迟
+    record.operating = true; // 添加 loading 状态
+    // 这里应该调用后端 API
+    await new Promise(resolve => setTimeout(resolve, 2000)); // 模拟 API 调用延迟
     
-    const action = record.status === 'running' ? '关机' : '开机'
-    record.status = record.status === 'running' ? 'stopped' : 'running'
-    Message.success(`${record.name}${action}成功`)
+    record.status = record.status === 'running' ? 'stopped' : 'running';
+    Message.success(`${record.name}${action}成功`);
   } catch (error) {
-    Message.error(`${record.name}${action}失败`)
+    Message.error(`${record.name}${action}失败`);
   } finally {
-    record.operating = false
+    record.operating = false;
   }
 }
 
