@@ -67,7 +67,7 @@
             </a-tag>
           </template>
         </a-table-column>
-        <a-table-column-number title="操作" width="300">
+        <a-table-column title="操作" width="300">
           <template #cell="{ record }">
             <a-space>
               <a-button
@@ -97,7 +97,7 @@
               </a-popconfirm>
             </a-space>
           </template>
-        </a-table-column-number>
+        </a-table-column>
       </template>
     </a-table>
 
